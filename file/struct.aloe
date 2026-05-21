@@ -6,7 +6,34 @@ struct File{
         this.__native_file = native_value;
     }
 
+    ##
+    # File.path
+    # the absolute path of the file.
+    # type: str
+    ##
+    fun path(this){
+        this.__native_file.path;
+    }
+
     ## 
+    # File.is_open
+    # true, if the file is open. 
+    # type: bool
+    ##
+    fun is_open(){
+        this.__native_file.is_open
+    }
+
+    ##
+    # File.mode
+    # the mode in which the file was open.
+    # type: str
+    ##
+    fun mode(){
+        this.__native_file.mode
+    }
+
+    ##
     # File.read()?
     # reads the content of a file, and returns it as a 'str' value.
     # params: []
@@ -23,8 +50,8 @@ struct File{
     # writes "content" into the file. Moves the seek position.
     # params: [str]
     # returns: int
-    # panics: [WrongArgumentCount]
-    # errors: [FileMode, WrongArgumentType, FileIsClosed, ErrorFromPanic]
+    # panics: [WrongArgumentCount, WrongArgumentType]
+    # errors: [FileMode, FileIsClosed, ErrorFromPanic]
     ##
     fun write(this, content){
         this.__native_file.write(content);
@@ -35,8 +62,8 @@ struct File{
     # sets the seek position of the file.
     # params: [int]
     # returns: null
-    # panics: [WrongArgumentCount]
-    # errors: [WrongArgumentType, FileIsClosed, FileSeek]
+    # panics: [WrongArgumentCount, WrongArgumentType]
+    # errors: [FileIsClosed, FileSeek]
     ## 
     fun seek(this, position){
         this.__native_file.seek(position);

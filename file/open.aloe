@@ -1,12 +1,26 @@
 import {File} from "./struct.aloe";
 
 ##
-# open()
+# file.open()?
+# opens a file on the disk, with default ("r") mode.
+# params: [str]
+# returns: File
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errors: [FileOpening] 
+##
 fun open(file_path){
     let native = __open(file_path)?;
     File(native)
 }
 
+##
+# file.open_with_mode()?
+# opens a file on the disk, with custom mode.
+# params: [str, str]
+# returns: File
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errors: [FileOpening] 
+##
 fun open_with_mode(file_path, mode){
     let native = __open(file_path, mode)?;
     File(native)

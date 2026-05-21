@@ -1,0 +1,5 @@
+import {
+    PI,
+    TAU,
+    e
+        } from "math/constants.aloe";
