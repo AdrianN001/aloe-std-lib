@@ -1,0 +1,5 @@
+import {
+    open, 
+    open_with_mode, 
+    File
+        } from "file/file.aloe" into file;

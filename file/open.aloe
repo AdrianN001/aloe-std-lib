@@ -1,0 +1,13 @@
+import {File} from "./struct.aloe";
+
+##
+# open()
+fun open(file_path){
+    let native = __open(file_path)?;
+    File(native)
+}
+
+fun open_with_mode(file_path, mode){
+    let native = __open(file_path, mode)?;
+    File(native)
+}

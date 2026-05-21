@@ -1,0 +1,57 @@
+
+struct File{
+    __native_file;
+
+    fun constructor(this, native_value){
+        this.__native_file = native_value;
+    }
+
+    ## 
+    # File.read()?
+    # reads the content of a file, and returns it as a 'str' value.
+    # params: []
+    # returns: str
+    # panics: []
+    # errors: [FileMode, FileIsClosed]
+    ##
+    fun read(this){
+        this.__native_file.read();
+    }
+
+    ##
+    # File.write()?
+    # writes "content" into the file. Moves the seek position.
+    # params: [str]
+    # returns: int
+    # panics: [WrongArgumentCount]
+    # errors: [FileMode, WrongArgumentType, FileIsClosed, ErrorFromPanic]
+    ##
+    fun write(this, content){
+        this.__native_file.write(content);
+    }
+
+    ## 
+    # File.seek()?
+    # sets the seek position of the file.
+    # params: [int]
+    # returns: null
+    # panics: [WrongArgumentCount]
+    # errors: [WrongArgumentType, FileIsClosed, FileSeek]
+    ## 
+    fun seek(this, position){
+        this.__native_file.seek(position);
+    }
+
+    
+    ##
+    # File.close()?
+    # closes the file.
+    # params: []
+    # returns: null
+    # panics: []
+    # errors: [FileIsClosed]
+    ##
+    fun close(){
+        this.__native_file.close();
+    }
+}
