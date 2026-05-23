@@ -20,7 +20,7 @@ struct File{
     # true, if the file is open. 
     # type: bool
     ##
-    fun is_open(){
+    fun is_open(this){
         this.__native_file.is_open
     }
 
@@ -29,7 +29,7 @@ struct File{
     # the mode in which the file was open.
     # type: str
     ##
-    fun mode(){
+    fun mode(this){
         this.__native_file.mode
     }
 
@@ -78,7 +78,7 @@ struct File{
     # panics: []
     # errors: [FileIsClosed]
     ##
-    fun close(){
+    fun close(this){
         this.__native_file.close();
     }
 }
