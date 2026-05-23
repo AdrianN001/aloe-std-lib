@@ -21,7 +21,7 @@ struct File{
     # type: bool
     ##
     fun is_open(this){
-        this.__native_file.is_open
+        this.__native_file.is_open;
     }
 
     ##
@@ -30,7 +30,7 @@ struct File{
     # type: str
     ##
     fun mode(this){
-        this.__native_file.mode
+        this.__native_file.mode;
     }
 
     ##
@@ -43,6 +43,18 @@ struct File{
     ##
     fun read(this){
         this.__native_file.read();
+    }
+
+    ##
+    # File.read_async()?
+    # reads the content of a file, and returns it as 'str' value.
+    # params: []
+    # returns: Future(str)
+    # panics: []
+    # errors: [FileMode, FileIsClosed]
+    ##
+    async fun read_async(this){
+        await this.__native_file.read_async()
     }
 
     ##

@@ -1,0 +1,92 @@
+struct Path{
+    __native_path;
+
+    fun constructor(this, __native_path){
+        this.__native_path = __native_path;
+    }
+
+    ##
+    # Path.is_absolute
+    # returns true, if the path is absolute.
+    # type: bool
+    ##
+    fun is_absolute(this){
+        this.__native_path.is_absolute;
+    }
+
+    ##
+    # Path.is_relative
+    # returns true, if the path is relative.
+    # type: bool
+    ##
+    fun is_relative(this){
+        this.__native_path.is_relative;
+    }
+
+    ##
+    # Path.is_file
+    # returns true, if the path points to a file.
+    # type: bool
+    ##
+    fun is_file(this){
+        this.__native_path.is_file;
+    }
+
+    ##
+    # Path.is_dir
+    # returns true, if the path points to a directory.
+    # type: bool
+    ##
+    fun is_dir(this){
+        this.__native_path.is_dir;
+    }
+
+    ##
+    # Path.as_absolute()?
+    # returns a new path, with the path being absolute.
+    # params: []
+    # returns: Path
+    # panics: []
+    # errors: [PathResolve]
+    ##
+    fun as_absolute(this){
+        this.__native_path.as_absolute()
+    }
+
+    ##
+    # Path.get_parent()?
+    # returns the parent of the current path. If the path has no parent, returns root.
+    # params: []
+    # returns: Path 
+    # panics: []
+    # errors:  [PathParentResolve,PathResolve]
+    ##
+    fun get_parent(this){
+        this.__native_path.parent()
+    }
+
+    ##
+    # Path.get_children()?
+    # returns a list of Path objects, each of them is a child of the current path.
+    # params: []
+    # returns: [Path]
+    # panics: []
+    # errors: [PathChildrenResolve, PathResolve]
+    ##
+    fun get_children(this){
+        this.__native_path.children()
+    } 
+
+    ##
+    # Path.as_str()
+    # returns a string representation of the parent.
+    # params: []
+    # returns: str
+    # panics: []
+    # errors: []
+    ##
+    fun as_str(this){
+        this.__native_path.as_str()
+    }
+
+}

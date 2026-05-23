@@ -2,4 +2,4 @@ import {
     PI,
     TAU,
     e
-        } from "math/constants.aloe";
+} from "math/constants.aloe" into math;

@@ -1,7 +1,7 @@
 import {File} from "./struct.aloe";
 
 ##
-# file.open()?
+# file::open()?
 # opens a file on the disk, with default ("r") mode.
 # params: [str]
 # returns: File
@@ -14,7 +14,7 @@ fun open(file_path){
 }
 
 ##
-# file.open_with_mode()?
+# file::open_with_mode()?
 # opens a file on the disk, with custom mode.
 # params: [str, str]
 # returns: File

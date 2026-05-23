@@ -1,2 +1,2 @@
-import {open_with_mode, open} from "./open.aloe";
+import {open_with_mode, open} from "./accessor.aloe";
 import {File} from "./struct.aloe"
