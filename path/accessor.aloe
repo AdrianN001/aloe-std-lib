@@ -2,14 +2,12 @@ import {Path} from "./struct.aloe"
 
 
 ##
-# path::open()?
+# path::open(path: str)? -> Path
 # creates a Path object, which represents a file or a directory on the disk.
-# params: [str]
-# returns: Path
 # panics: [WrongArgumentCount, WrongArgumentType]
 # errors: [PathResolve]
 ##
 fun open(path){
-    native_path = __path(path);
+    native_path = __path(path)?;
     Path(native_path)
 }

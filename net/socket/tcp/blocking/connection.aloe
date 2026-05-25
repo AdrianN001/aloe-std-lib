@@ -1,0 +1,38 @@
+
+struct TCPConn{
+    __native_conn;
+
+    fun constructor(this, __native_conn){
+        this.__native_conn = __native_conn;
+    }
+
+    ##
+    # TCPConn.read()? -> [int]
+    # reads maximal 1024 bytes, and returns it as an int list.
+    # panics: []
+    # errors: [SocketRead]
+    ##
+    fun read(this){
+        this.__native_conn.read()
+    }
+
+    ##
+    # TCPConn.write(data: [int])? -> int
+    # writes the content of "data" into the connection, and returns the number of bytes written.
+    # panics: [WrongArgumentCount, WrongArgumentType]
+    # errors: [SocketWrite]
+    ##
+    fun write(this, data){
+        this.__native_conn.write(data)
+    }
+
+    ##
+    # TCPConn.close()? -> null
+    # closes the connection
+    # panics: []
+    # errors: [SocketClose]
+    ##
+    fun close(this){
+        this.__native_conn.close()
+    } 
+}

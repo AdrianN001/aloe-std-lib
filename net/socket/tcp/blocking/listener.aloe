@@ -1,0 +1,54 @@
+import {TCPConn} from "./connection.aloe";
+
+struct TCPListener{
+    __native_listener;
+
+    fun constructor(this, __native_listener){
+        this.__native_listener = __native_listener;
+    }
+
+    ##
+    # TCPListener.port -> int
+    # Returns the port of the listener.
+    ##
+    fun port(this){
+        this.__native_listener.port
+    }
+
+    ##
+    # TCPListener.addr -> int
+    # returns the address of the listener.
+    ##
+    fun addr(this){
+        this.__native_listener.addr
+    }
+
+    ##
+    # TCPListener.is_blocking -> bool
+    # returns true, if the listener blocks at TCPListener.accept()?
+    ##
+    fun is_blocking(this){
+        this.__native_listener.is_blocking
+    }
+
+    ##
+    # TCPListener.accept()? -> TCPConn
+    # returns a new tcp connection. Blocks if the server's 'is_blocking' attribute is true. Otherwise, returns SocketAcceptError.
+    # panics: []
+    # errors: [SocketAccept]
+    ##
+    fun accept(this){
+        let native_connection = this.__native_listener.accept()?;
+        TCPConn(native_connection)
+    }
+
+    ##
+    # TCPListener.set_blocking(should_block: bool)? -> null
+    # sets the listener's is_blocking attribute. 
+    # panics: [WrongArgumentCount, WrongArgumentType]
+    # errors: [NonBlockChange]
+    ##
+    fun set_blocking(this, should_block){
+        this.__native_listener.set_blocking(should_block)
+    }
+}

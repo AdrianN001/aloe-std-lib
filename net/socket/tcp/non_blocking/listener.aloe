@@ -1,0 +1,35 @@
+
+struct NonBlockingTCPListener{
+    __native_listener;
+
+    fun constructor(this, __native_listener){
+        this.__native_listener = __native_listener;
+    }
+
+    ##
+    # NonBlockingTCPListener.port -> int
+    # Returns the port of the listener.
+    ##
+    fun port(this){
+        this.__native_listener.port
+    }
+
+    ##
+    # NonBlockingTCPListener.addr -> int
+    # returns the address of the listener.
+    ##
+    fun addr(this){
+        this.__native_listener.addr
+    }
+    
+    ##
+    # NonBlockingTCPListener.accept()? -> Future(NonBlockingTCPConn)
+    # returns a new tcp connection. 
+    # panics: [SocketAccept]
+    # errors: [SocketAccept]
+    ##
+    fun accept(this){
+        let native_connection = this.__native_listener.accept()?;
+        TCPConn(native_connection)
+    }
+}

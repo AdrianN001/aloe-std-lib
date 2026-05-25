@@ -1,0 +1,43 @@
+struct NonBlockingTCPConn{
+    __native_conn;
+
+    fun constructor(this, __native_conn){
+        this.__native_conn = __native_conn;
+    }
+
+    ##
+    # NonBlockingTCPConn.read()? -> Future([int])
+    # reads maximal 1024 bytes, and returns it as an int list.
+    # panics: []
+    # errors: [SocketRead]
+    ##
+    fun read(this){
+        this.__native_conn.read()
+    }
+
+    ##
+    # NonBlockingTCPConn.write(data: [int])? -> Future(int)
+    # writes the content of "data" into the connection, and returns the number of bytes written.
+    # panics: [WrongArgumentCount, WrongArgumentType]
+    # errors: [SocketRead]
+    ##
+    fun write(this, data){
+        this.__native_conn.write(data)
+    }
+
+    ##
+    # NonBlockingTCPConn.port -> int
+    # returns the port of the connection
+    ##
+    fun port(this){
+        this.__native_conn.port
+    }
+
+    ##
+    # NonBlockingTCPConn.addr -> str 
+    # returns the address of the connection
+    ##
+    fun addr(this){
+        this.__native_conn.addr
+    }
+}

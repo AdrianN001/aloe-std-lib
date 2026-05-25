@@ -7,37 +7,32 @@ struct File{
     }
 
     ##
-    # File.path
+    # File.path -> str
     # the absolute path of the file.
-    # type: str
     ##
     fun path(this){
         this.__native_file.path;
     }
 
     ## 
-    # File.is_open
+    # File.is_open -> bool
     # true, if the file is open. 
-    # type: bool
     ##
     fun is_open(this){
         this.__native_file.is_open;
     }
 
     ##
-    # File.mode
+    # File.mode -> str
     # the mode in which the file was open.
-    # type: str
     ##
     fun mode(this){
         this.__native_file.mode;
     }
 
     ##
-    # File.read()?
+    # File.read()? -> str
     # reads the content of a file, and returns it as a 'str' value.
-    # params: []
-    # returns: str
     # panics: []
     # errors: [FileMode, FileIsClosed]
     ##
@@ -46,10 +41,8 @@ struct File{
     }
 
     ##
-    # File.read_async()?
+    # File.read_async()? -> Future(str)
     # reads the content of a file, and returns it as 'str' value.
-    # params: []
-    # returns: Future(str)
     # panics: []
     # errors: [FileMode, FileIsClosed]
     ##
@@ -58,10 +51,8 @@ struct File{
     }
 
     ##
-    # File.write()?
+    # File.write(content: str)? -> int
     # writes "content" into the file. Moves the seek position.
-    # params: [str]
-    # returns: int
     # panics: [WrongArgumentCount, WrongArgumentType]
     # errors: [FileMode, FileIsClosed, ErrorFromPanic]
     ##
@@ -70,10 +61,8 @@ struct File{
     }
 
     ## 
-    # File.seek()?
+    # File.seek(int)? -> null
     # sets the seek position of the file.
-    # params: [int]
-    # returns: null
     # panics: [WrongArgumentCount, WrongArgumentType]
     # errors: [FileIsClosed, FileSeek]
     ## 
@@ -83,10 +72,8 @@ struct File{
 
     
     ##
-    # File.close()?
+    # File.close()? -> null
     # closes the file.
-    # params: []
-    # returns: null
     # panics: []
     # errors: [FileIsClosed]
     ##
