@@ -1,4 +1,4 @@
-import {Path} from "./struct.aloe"
+import {Path} from "@std::path/struct.aloe"
 
 
 ##

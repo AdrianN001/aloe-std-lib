@@ -1,4 +1,4 @@
 import {
     open, 
     open_with_mode, 
-} from "file/file.aloe" into file;
+} from "@std::file/file.aloe" into file;

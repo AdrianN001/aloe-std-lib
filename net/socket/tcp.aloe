@@ -3,4 +3,4 @@ import {
     connect,
     bind_async,
     connect_async
-} from "./tcp/tcp.aloe" into tcp;
+} from "@std::net/socket/tcp/tcp.aloe" into tcp;

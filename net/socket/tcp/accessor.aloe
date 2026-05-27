@@ -1,8 +1,8 @@
-import {TCPListener} from "./blocking/listener.aloe";
-import {TCPConn} from "./blocking/connection.aloe";
+import {TCPListener} from "@std::net/socket/tcp/blocking/listener.aloe";
+import {TCPConn} from "@std::net/socket/tcp/blocking/connection.aloe";
 
-import {NonBlockingTCPListener} from "./non_blocking/listener.aloe";
-import {NonBlockingTCPConn} from "./non_blocking/connection.aloe";
+import {NonBlockingTCPListener} from "@std::net/socket/tcp/non_blocking/listener.aloe";
+import {NonBlockingTCPConn} from "@std::net/socket/tcp/non_blocking/connection.aloe";
 
 
 ##

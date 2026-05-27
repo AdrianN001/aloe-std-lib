@@ -2,4 +2,4 @@ import {
     PI,
     TAU,
     e
-} from "math/constants.aloe" into math;
+} from "@std::math/constants.aloe" into math;

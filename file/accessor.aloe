@@ -1,4 +1,4 @@
-import {File} from "./struct.aloe";
+import {File} from "@std::file/struct.aloe";
 
 ##
 # file::open(path: str)? -> File

@@ -1,3 +1,4 @@
+import {NonBlockingTCPConn} from "@std::net/socket/tcp/non_blocking/connection.aloe";
 
 struct NonBlockingTCPListener{
     __native_listener;
@@ -29,7 +30,7 @@ struct NonBlockingTCPListener{
     # errors: [SocketAccept]
     ##
     fun accept(this){
-        let native_connection = this.__native_listener.accept()?;
-        TCPConn(native_connection)
+        let native_connection = await this.__native_listener.accept()?;
+        NonBlockingTCPConn(native_connection)
     }
 }
