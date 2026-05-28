@@ -7,7 +7,7 @@ struct TCPConn{
     }
 
     ##
-    # TCPConn.read()? -> [int]
+    # TCPConn.read()? -> buffer
     # reads maximal 1024 bytes, and returns it as an int list.
     # panics: []
     # errors: [SocketRead]
@@ -17,7 +17,7 @@ struct TCPConn{
     }
 
     ##
-    # TCPConn.write(data: [int])? -> int
+    # TCPConn.write(data: buffer)? -> int
     # writes the content of "data" into the connection, and returns the number of bytes written.
     # panics: [WrongArgumentCount, WrongArgumentType]
     # errors: [SocketWrite]

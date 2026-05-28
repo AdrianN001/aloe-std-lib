@@ -1,3 +1,4 @@
+import {Path} from "@std::path/struct.aloe";
 
 struct File{
     __native_file;
@@ -6,13 +7,6 @@ struct File{
         this.__native_file = native_value;
     }
 
-    ##
-    # File.path -> str
-    # the absolute path of the file.
-    ##
-    fun path(this){
-        this.__native_file.path;
-    }
 
     ## 
     # File.is_open -> bool
@@ -22,13 +16,6 @@ struct File{
         this.__native_file.is_open;
     }
 
-    ##
-    # File.mode -> str
-    # the mode in which the file was open.
-    ##
-    fun mode(this){
-        this.__native_file.mode;
-    }
 
     ##
     # File.read()? -> str
@@ -54,7 +41,7 @@ struct File{
     # File.write(content: str)? -> int
     # writes "content" into the file. Moves the seek position.
     # panics: [WrongArgumentCount, WrongArgumentType]
-    # errors: [FileMode, FileIsClosed, ErrorFromPanic]
+    # errors: [FileIsClosed, ErrorFromPanic]
     ##
     fun write(this, content){
         this.__native_file.write(content);
@@ -68,6 +55,16 @@ struct File{
     ## 
     fun seek(this, position){
         this.__native_file.seek(position);
+    }
+
+
+    ##
+    # File.get_path()? -> Path
+    # returns a Path object, pointing to the file.
+    ##
+    fun get_path(this){
+        let native_path = this.__native_file.get_path()?;
+        Path(native_path)
     }
 
     

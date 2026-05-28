@@ -1,2 +1,2 @@
-import {open_with_mode, open} from "@std::file/accessor.aloe";
+import {create, open} from "@std::file/accessor.aloe";
 import {File} from "@std::file/struct.aloe"

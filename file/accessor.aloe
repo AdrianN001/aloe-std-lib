@@ -2,9 +2,7 @@ import {File} from "@std::file/struct.aloe";
 
 ##
 # file::open(path: str)? -> File
-# opens a file on the disk, with default ("r") mode.
-# params: [str]
-# returns: File
+# opens a file on the disk.
 # panics: [WrongArgumentCount, WrongArgumentType]
 # errors: [FileOpening] 
 ##
@@ -14,14 +12,12 @@ fun open(file_path){
 }
 
 ##
-# file::open_with_mode(path: str, mode: str)? -> File
-# opens a file on the disk, with custom mode.
-# params: [str, str]
-# returns: File
+# file::create(path: str)? -> File
+# creates a file, in write-only mode.
 # panics: [WrongArgumentCount, WrongArgumentType]
 # errors: [FileOpening] 
 ##
-fun open_with_mode(file_path, mode){
-    let native = __open(file_path, mode)?;
+fun create(file_path){
+    let native = __open(file_path, true)?;
     File(native)
 }

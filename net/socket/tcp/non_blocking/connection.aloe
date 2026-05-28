@@ -6,8 +6,8 @@ struct NonBlockingTCPConn{
     }
 
     ##
-    # NonBlockingTCPConn.read()? -> Future([int])
-    # reads maximal 1024 bytes, and returns it as an int list.
+    # NonBlockingTCPConn.read()? -> Future(buffer)
+    # reads maximal 1024 bytes, and returns it as a buffer.
     # panics: []
     # errors: [SocketRead]
     ##
@@ -16,7 +16,7 @@ struct NonBlockingTCPConn{
     }
 
     ##
-    # NonBlockingTCPConn.write(data: [int])? -> Future(int)
+    # NonBlockingTCPConn.write(data: buffer)? -> Future(int)
     # writes the content of "data" into the connection, and returns the number of bytes written.
     # panics: [WrongArgumentCount, WrongArgumentType]
     # errors: [SocketRead]
