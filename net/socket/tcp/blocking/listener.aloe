@@ -1,4 +1,4 @@
-import {TCPConn} from "@std::net/tcp/blocking/connection.aloe";
+import {TCPConn} from "@std::net/socket/tcp/blocking/connection.aloe";
 
 struct TCPListener{
     __native_listener;
