@@ -38,7 +38,7 @@ struct UDPSocket{
     # errors: [SocketRead]
     ##
     fun recv_from(this){
-        this.__native_conn.recv_from()
+        this.__native_socket.recv_from()
     }
 
     ##
@@ -48,6 +48,6 @@ struct UDPSocket{
     # errors: [SocketWrite]
     ##
     fun send_to(this, data, addr){
-        this.__native_conn.send_to(data, addr)
+        this.__native_socket.send_to(data, addr)
     } 
 }

@@ -28,7 +28,7 @@ struct NonBlockingUDPSocket{
     # errors: [SocketRead]
     ##
     async fun recv_from_async(this){
-        await this.__native_conn.recv_from_async()
+        await this.__native_socket.recv_from_async()
     }
 
     ##
@@ -38,6 +38,6 @@ struct NonBlockingUDPSocket{
     # errors: [SocketWrite]
     ##
     async fun send_to_async(this, data, addr){
-        await this.__native_conn.send_to_async(data, addr)
+        await this.__native_socket.send_to_async(data, addr)
     }
 } 
