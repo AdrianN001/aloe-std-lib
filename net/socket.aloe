@@ -1,3 +1,4 @@
 import {
-    tcp
+    tcp,
+    udp
 } from "@std::net/socket/socket.aloe" into socket;

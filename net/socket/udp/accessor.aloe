@@ -1,0 +1,25 @@
+import {UDPSocket} from "@std::net/socket/udp/blocking/socket.aloe";
+import {NonBlockingUDPSocket} from "@std::net/socket/udp/non_blocking/socket.aloe";
+
+
+##
+# udp::bind(addr: str, port: int) -> UDPSocket
+# creates a UDP socket, and binds it to addr:port.
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errors: [SocketBind]
+##
+fun bind(addr, port){
+    let native_connection = __udp_bind(addr, port)?;
+    UDPSocket(native_connection)
+}
+
+##
+# udp::bind_async(addr: str, port: int) -> Future(NonBlockingUDPSocket)
+# creates a UDP socket, and binds it to addr:port.
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errors: [SocketBind]
+##
+async fun bind_async(addr, port){
+    let native_connection = __audp_bind(addr, port)?;
+    NonBlockingUDPSocket(native_connection)
+}

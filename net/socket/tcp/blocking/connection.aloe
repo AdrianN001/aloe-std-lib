@@ -8,7 +8,7 @@ struct TCPConn{
 
     ##
     # TCPConn.read()? -> buffer
-    # reads maximal 1024 bytes, and returns it as an int list.
+    # reads maximal 1024 bytes, and returns it as a buffer.
     # panics: []
     # errors: [SocketRead]
     ##

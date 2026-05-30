@@ -1,0 +1,53 @@
+
+struct UDPSocket{
+    __native_socket;
+
+    fun constructor(this, __native_socket){
+        this.__native_socket = __native_socket;
+    }
+
+    ##
+    # UDPSocket.port -> int
+    # returns the port, the socket was binded to.
+    ##
+    fun port(this){
+        this.__native_socket.port
+    }
+
+    ##
+    # UDPSocket.addr -> str
+    # returns the address, the socket was binded to.
+    ##
+    fun addr(this){
+        this.__native_socket.addr
+    } 
+
+    ##
+    # UDPSocket.is_nonblocking -> bool
+    # returns false, if the socket blocks at reading
+    ##
+    fun is_nonblocking(this){
+        this.__native_socket.is_nonblocking
+    }
+
+
+    ##
+    # UDPSocket.recv_from()? -> [buffer, str]
+    # reads maximal 1024 bytes, and returns a buffer, and the sender address.
+    # panics: []
+    # errors: [SocketRead]
+    ##
+    fun recv_from(this){
+        this.__native_conn.recv_from()
+    }
+
+    ##
+    # UDPSocket.send_to(data: buffer, addr: str)? -> int
+    # writes the content of "data" into addr, and returns the number of bytes written.
+    # panics: [WrongArgumentCount, WrongArgumentType]
+    # errors: [SocketWrite]
+    ##
+    fun send_to(this, data, addr){
+        this.__native_conn.send_to(data, addr)
+    } 
+}

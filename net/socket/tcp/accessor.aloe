@@ -28,23 +28,23 @@ fun connect(addr, port){
 }
 
 ##
-# tcp::bind_async(addr: str, port: int) -> Future(NonBlockingTCPListener)
+# tcp::bind_async(addr: str, port: int)? -> Future(NonBlockingTCPListener)
 # Creates a non blocking TCP listener, and binds it to the given addr:port.
 # panics: [WrongArgumentCount, WrongArgumentType]
 # errors: [SocketBind]
 ##
 async fun bind_async(addr, port){
-    let native_listener = await __atcp_bind(addr, port)?;
+    let native_listener = __atcp_bind(addr, port)?;
     NonBlockingTCPListener(native_listener)
 }
 
 ##
-# tcp::connect_async(addr: str, port: int) -> Future(NonBlockingTCPConn)
+# tcp::connect_async(addr: str, port: int)? -> Future(NonBlockingTCPConn)
 # Connects to a TCP server on the given addr:port.
 # panics: [WrongArgumentCount, WrongArgumentType]
 # errors: [SocketConnect]
 ##
 async fun connect_async(addr, port){
-    let native_connection = await __atcp_connect(addr, port)?;
+    let native_connection = __atcp_connect(addr, port)?;
     NonBlockingTCPConn(native_connection)
 }

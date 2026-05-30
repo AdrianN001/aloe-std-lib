@@ -1,0 +1,43 @@
+struct NonBlockingUDPSocket{
+    __native_socket;
+
+    fun constructor(this, __native_socket){
+        this.__native_socket = __native_socket;
+    }
+
+    ##
+    # NonBlockingUDPSocket.port -> int
+    # returns the port, the socket was binded to.
+    ##
+    fun port(this){
+        this.__native_socket.port
+    }
+
+    ##
+    # NonBlockingUDPSocket.addr -> str
+    # returns the address, the socket was binded to.
+    ##
+    fun addr(this){
+        this.__native_socket.addr
+    } 
+
+    ##
+    # NonBlockingUDPSocket.recv_from_async()? -> Future([buffer, str])
+    # reads maximal 1024 bytes, and returns a buffer, and the sender address.
+    # panics: []
+    # errors: [SocketRead]
+    ##
+    async fun recv_from_async(this){
+        await this.__native_conn.recv_from_async()
+    }
+
+    ##
+    # NonBlockingUDPSocket.send_to_async(data: buffer, addr: str)? -> Future(int)
+    # writes the content of "data" into addr, and returns the number of bytes written.
+    # panics: [WrongArgumentCount, WrongArgumentType]
+    # errors: [SocketWrite]
+    ##
+    async fun send_to_async(this, data, addr){
+        await this.__native_conn.send_to_async(data, addr)
+    }
+} 

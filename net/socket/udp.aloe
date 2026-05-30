@@ -1,0 +1,4 @@
+import {
+    bind,
+    bind_async,
+} from "@std::net/socket/udp/udp.aloe" into tcp;
