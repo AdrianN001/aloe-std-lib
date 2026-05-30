@@ -29,7 +29,7 @@ struct NonBlockingTCPListener{
     # panics: [SocketAccept]
     # errors: [SocketAccept]
     ##
-    fun accept(this){
+    async fun accept(this){
         let native_connection = await this.__native_listener.accept()?;
         NonBlockingTCPConn(native_connection)
     }
