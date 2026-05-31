@@ -51,7 +51,9 @@ struct Command{
     # errors: []
     ##
     fun add_arg(this, arg){
-        this.__native_command.add_arg(arg)
+        this.__native_command.add_arg(arg);
+        
+        this
     }
 
     ##
@@ -62,6 +64,8 @@ struct Command{
     ##
     fun set_current_dir(this, path){
         this.__native_command.set_current_dir(path)
+
+        this
     }
 
     ##
@@ -72,6 +76,8 @@ struct Command{
     ##
     fun set_env(this, key, value){
         this.__native_command.set_env(key, value)
+
+        this
     }
 
     ##
