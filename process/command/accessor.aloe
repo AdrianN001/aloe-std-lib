@@ -1,0 +1,12 @@
+import {Command} from "@std::process/command/struct.aloe";
+
+##
+# command::new(program_path: str) -> Command
+# creates a new Command object for launching the program at program_path.
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errors: []
+##
+fun new(program_path){
+    let native_command = __cmd(program_path);
+    Command(native_command)
+}

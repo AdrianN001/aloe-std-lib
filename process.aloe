@@ -1,0 +1,3 @@
+import {
+    command
+} from "@std::process/process.aloe" into process;

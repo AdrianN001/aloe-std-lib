@@ -1,0 +1,3 @@
+import {
+    new
+} from "@std::process/command/accessor.aloe"

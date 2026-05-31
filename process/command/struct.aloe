@@ -1,0 +1,86 @@
+import {Path} from "@std::path/struct.aloe";
+
+struct Command{
+    __native_command;
+
+    fun constructor(this, __native_command){
+        this.__native_command = __native_command
+    }
+
+    ##
+    # Command.program -> str
+    # returns the path of the program, as str.
+    ##
+    fun program(this){
+        this.__native_command.program
+    }
+
+    ##
+    # Command.args -> [str]
+    # returns the list of arguments, that will be passed to the program.
+    ##
+    fun args(this){
+        this.__native_command.args
+    }
+
+    ##
+    # Command.current_dir -> Path|null
+    # returns the working directory for the child process, or null if it was not changed.
+    ##
+    fun current_dir(this){
+        let native_path = this.__native_command.current_dir;
+        if native_path.is_null{
+            return native_path;
+        }
+
+        Path(native_path)
+    }
+
+    ##
+    # Command.env -> [[str, str]]
+    # returns a key-value pair of the environment.
+    ##
+    fun env(this){
+        this.__native_command.env
+    }
+
+    ##
+    # Command.add_arg(argument: str) -> Command
+    # Adds an argument to pass to the program.
+    # panics: [WrongArgumentType, WrongArgumentCount],
+    # errors: []
+    ##
+    fun add_arg(this, arg){
+        this.__native_command.add_arg(arg)
+    }
+
+    ##
+    # Command.set_current_dir(directory_path: str) -> Command
+    # Sets the working directory of the program.
+    # panics: [WrongArgumentType, WrongArgumentCount],
+    # errors: []
+    ##
+    fun set_current_dir(this, path){
+        this.__native_command.set_current_dir(path)
+    }
+
+    ##
+    # Command.set_env(key: str, value: str) -> Command
+    # Inserts or updates an explicit environment variable mapping.
+    # panics: [WrongArgumentType, WrongArgumentCount]
+    # errors: []
+    ##
+    fun set_env(this, key, value){
+        this.__native_command.set_env(key, value)
+    }
+
+    ##
+    # Command.output() -> [int, buffer, buffer]
+    # Executes the command as a child process, waiting for it to finish and collects its input as [status, stdout, stderr];
+    # panics: [WrongArgumentType, WrongArgumentCount]
+    # errors: [Command]
+    ##
+    fun output(this){
+        this.__native_command.output()
+    }
+}
