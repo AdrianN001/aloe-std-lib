@@ -4,8 +4,8 @@ import {Lexer} from "@std::parser/json/lexer.aloe";
 struct Parser{
     lexer;
 
-    fun constructor(this, lexer) {
-        this.lexer = lexer;
+    fun constructor(this, input_data) {
+        this.lexer = Lexer(input_data);
     }
 
     fun parse_array(this){

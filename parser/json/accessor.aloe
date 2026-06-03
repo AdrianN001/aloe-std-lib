@@ -1,5 +1,4 @@
 import {Parser} from "@std::parser/json/parser.aloe";
-import {Lexer} from "@std::parser/json/lexer.aloe";
 
 ##
 # json::from_str(json_str: str) -> dict
@@ -11,9 +10,7 @@ fun from_str(json_str){
     if type(json_str) != "str"{
         return panic("WrongArgumentType", "expected str, got: '${type(json_str)}'")?;
     }
-    let lexer = Lexer(json_str);
-
-    let parser = Parser(lexer);
+    let parser = Parser(json_str);
 
     parser.parse()
 }
