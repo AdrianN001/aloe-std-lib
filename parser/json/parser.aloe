@@ -1,0 +1,144 @@
+import {LBRACE, RBRACE, LBRACKET, RBRACKET, COMMA, STRING, KEYWORD, COLON, NUMBER} from "@std::parser/json/token_type.aloe" into TokenType;
+import {Lexer} from "@std::parser/json/lexer.aloe";
+
+struct Parser{
+    lexer;
+
+    fun constructor(this, lexer) {
+        this.lexer = lexer;
+    }
+
+    fun parse_array(this){
+        let arr = [];
+        
+
+        while{
+            let token = this.lexer.next_token()?;
+
+            if token.token_type == TokenType::RBRACKET{
+                return arr
+            }elif token.token_type == TokenType::LBRACKET{
+                let array_parsed = this.parse_array();
+                arr.push(array_parsed);
+            }elif token.token_type == TokenType::LBRACE{
+                let dict_parsed = this.parse_dict();
+                arr.push(dict_parsed);
+            }elif token.token_type == TokenType::STRING{
+                let str_parsed = this.parse_string(token)?;
+                arr.push(str_parsed);
+            }elif token.token_type == TokenType::NUMBER{
+                let number_parsed = this.parse_number(token)?;
+                arr.push(number_parsed);
+            }elif token.token_type == TokenType::KEYWORD{
+                let keyword_parsed = this.parse_keyword(token)?;
+                arr.push(keyword_parsed)
+            }else{
+                return __err("unexpected token: ${token}");
+            }
+
+            let second_token = this.lexer.next_token()?;
+
+            if second_token.token_type == TokenType::RBRACKET{
+                return arr;
+            }
+            
+            if second_token.token_type != TokenType::COMMA{
+                return __err("unexpected token: ${second_token}, exepcted COMMA");
+            }
+        }
+    }
+
+    fun parse_string(this, string_token){
+        string_token.value
+    }
+
+    fun parse_number(this, number_token){
+        number_token.value
+    }
+
+    fun parse_keyword(this, keyword_token){
+        if keyword_token.value == "true"{
+            true
+        }elif keyword_token.value == "false"{
+            false
+        }else{
+            null
+        }
+    }
+
+    fun parse_dict(this){
+        let dict = {};
+        
+        while {
+            let key = this.lexer.next_token()?;
+
+            if key.token_type == TokenType::RBRACE{
+                return dict;
+            }
+
+            if key.token_type != TokenType::STRING{
+                return __err("key must a string, got: ${key.value}")
+            }
+
+            let key_value = this.parse_string(key);
+
+            let colon = this.lexer.next_token()?;
+            if colon.token_type != TokenType::COLON{
+                return __err("expected COLON, got: ${colon.value}");
+            }
+
+            let right_side = this.lexer.next_token()?;
+
+            if right_side.token_type == TokenType::LBRACKET{
+                let array_parsed = this.parse_array();
+                dict.set(key_value, array_parsed);
+            }elif right_side.token_type == TokenType::LBRACE{
+                let dict_parsed = this.parse_dict();
+                dict.set(key_value, dict_parsed);
+            }elif right_side.token_type == TokenType::STRING{
+                let str_parsed = this.parse_string(right_side)?;
+                dict.set(key_value, str_parsed);
+            }elif right_side.token_type == TokenType::NUMBER{
+                let number_parsed = this.parse_number(right_side)?;
+                dict.set(key_value, number_parsed);
+            }elif right_side.token_type == TokenType::KEYWORD{
+                let keyword_parsed = this.parse_keyword(right_side)?;
+                dict.set(key_value, keyword_parsed)
+            }else{
+                return __err("unexpected token: ${right_side}");
+            }
+
+            let comma = this.lexer.next_token()?;
+
+            if comma.token_type == TokenType::COMMA{
+                continue;
+            }elif comma.token_type == TokenType::RBRACE{
+                return dict;
+            }else{
+                return __err("Expected COMMA or RBRACE, got: ${comma.value}")
+            }
+        }
+
+        dict
+    }
+
+    fun parse(this){
+        let first_token = this.lexer.next_token()?;
+
+        let result = if first_token.token_type == TokenType::LBRACE{
+            this.parse_dict()
+        }elif first_token.token_type == TokenType::LBRACKET{
+            this.parse_array()
+        }elif first_token.token_type == TokenType::STRING{
+            this.parse_string(first_token)
+        }elif first_token.token_type == TokenType::KEYWORD{
+            this.parse_keyword(first_token)
+        }elif first_token.token_type == TokenType::NUMBER{
+            this.parse_number(first_token)
+        }else{
+            return __err("Illegal JSON");
+        };
+
+        result
+    }
+}

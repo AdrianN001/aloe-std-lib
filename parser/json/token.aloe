@@ -1,0 +1,4 @@
+struct Token{
+    value;
+    token_type;
+}

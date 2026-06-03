@@ -1,0 +1,192 @@
+import {Token} from "@std::parser/json/lexer.aloe"; 
+import {EOF, LBRACE, RBRACE, LBRACKET, RBRACKET, COMMA, STRING, KEYWORD, COLON, NUMBER} from "@std::parser/json/token_type.aloe" into TokenType;
+
+
+struct Lexer{
+    input_data;
+    input_length;
+
+    current_index;
+    current_character;
+
+    fun constructor(this, input_data){
+        this.input_data = input_data;
+        this.input_length = input_data.length;
+
+        this.empty = false;
+
+        this.current_index = -1;
+    }
+
+    fun peek(this){
+        if (this.current_index + 1) >= this.input_length{
+            this.empty = true;
+            return "\0";
+        }
+
+        this.input_data[this.current_index+1]
+    }
+
+    fun is_empty(this){
+        this.empty
+    }
+
+    fun next_char(this){
+        this.current_index += 1;
+
+        this.empty = this.current_index >= (this.input_length - 1);
+
+        if (this.current_index) >= this.input_length{
+            return "\0";
+        }
+
+        println("${this.input_length} => ${this.current_index}")
+        this.input_data[this.current_index]
+    }
+
+    fun skip_whitespaces(this){
+        while {
+            let peek_char = this.peek()?;
+            if !(peek_char == "\n" || peek_char == " "|| peek_char == "\r" || peek_char == "\t"){
+                break;
+            }
+            this.current_index += 1;
+        }
+    }
+
+    fun next_token(this){
+        this.skip_whitespaces();
+        
+        let char = this.next_char()?;
+
+        if char == "["{
+            Token("[", TokenType::LBRACKET);
+        }elif char == "]"{
+            Token("]", TokenType::RBRACKET);
+        }elif char == "{"{
+            Token("{", TokenType::LBRACE);
+        }elif char == "}"{
+            Token("}", TokenType::RBRACE);
+        }elif char == ","{
+            Token(",", TokenType::COMMA);
+        }elif char == "\""{
+            let content = this.parse_string();
+            Token(content, TokenType::STRING);
+        }elif char == ":"{
+            Token(":", TokenType::COLON);
+        }elif char == "\0"{
+            Token("\0", TokenType::EOF);
+        }else{
+            if char.is_digit() || char == "-"{
+                this.parse_number()
+            }elif this.str_is_letter(char){
+                this.parse_keyword()
+            }else{
+                __err("invalid character: '${char}'");
+            }
+        }
+
+    }
+
+    fun parse_string(this){
+        let buf = [];
+
+        while{
+            let char = this.next_char()?;
+
+            if char == "\""{
+                break;
+            }
+
+            if char == "\\"{
+                let escaped_character = this.next_char()?;
+
+                if escaped_character == "\0"{
+                    break;
+                }
+
+                if escaped_character == "n"{
+                    buf.push("\n");
+                }elif escaped_character == "t"{
+                    buf.push("\t");
+                }elif escaped_character == "r"{
+                    buf.push("\r");
+                }elif escaped_character == "\""{
+                    buf.push("\"");
+                }elif escaped_character == "\\"{
+                    buf.push("\\");
+                }
+
+                continue;
+            }
+
+            buf.push(char)
+        }
+        buf.join()
+    }
+
+    fun parse_keyword(this){
+        let buf = [];
+
+        buf.push(
+            this.input_data[this.current_index]
+        );
+
+        while{
+            let char = this.peek();
+            if char.is_err{
+                break;
+            }
+            if !(this.str_is_letter(char)){
+                break;
+            }
+
+            buf.push(char);
+            this.current_index += 1;
+        }
+
+        let keyword = buf.join; 
+
+        if keyword == "true" || keyword == "false" || keyword == "null"{
+            Token(keyword, TokenType::KEYWORD)
+        }else{
+            return __err("unknown keyword '${keyword}'");
+        }
+    }
+
+    fun parse_number(this){
+        let buff = [];
+        
+        buff.push(
+            this.input_data[this.current_index]
+        )
+
+        while{
+            let char = this.peek()?;
+            if !(char.is_digit || char == "." || char == "e" || char == "-"){
+                break;
+            }
+
+            buff.push(char);
+            this.current_index += 1;
+        }
+
+
+        let number = buff.join.as_float()?; 
+
+        Token(number, TokenType::NUMBER)
+    }
+
+    fun str_is_letter(this, str){
+        let bytes = str.as_buffer()?.as_arr;
+        
+        if bytes.length != 1{
+            return false;
+        }
+
+        let first_byte = bytes[0];
+
+        first_byte >= 97 && first_byte <= 122
+    }
+}
+
