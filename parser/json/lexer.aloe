@@ -40,7 +40,6 @@ struct Lexer{
             return "\0";
         }
 
-        println("${this.input_length} => ${this.current_index}")
         this.input_data[this.current_index]
     }
 
