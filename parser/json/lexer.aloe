@@ -1,5 +1,5 @@
 import {Token} from "@std::parser/json/token.aloe"; 
-import {EOF, LBRACE, RBRACE, LBRACKET, RBRACKET, COMMA, STRING, KEYWORD, COLON, NUMBER} from "@std::parser/json/token_type.aloe" into TokenType;
+import {TokenType} from "@std::parser/json/token_type.aloe";
 
 
 struct Lexer{

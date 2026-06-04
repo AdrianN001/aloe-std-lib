@@ -1,4 +1,4 @@
-import {LBRACE, RBRACE, LBRACKET, RBRACKET, COMMA, STRING, KEYWORD, COLON, NUMBER} from "@std::parser/json/token_type.aloe" into TokenType;
+import {TokenType} from "@std::parser/json/token_type.aloe";
 import {Lexer} from "@std::parser/json/lexer.aloe";
 
 struct Parser{

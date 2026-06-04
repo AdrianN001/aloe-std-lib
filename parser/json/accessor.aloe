@@ -7,7 +7,7 @@ import {Parser} from "@std::parser/json/parser.aloe";
 # errors: []
 ##
 fun from_str(json_str){
-    if type(json_str) != "str"{
+    if type(json_str) != "<type str>"{
         return panic("WrongArgumentType", "expected str, got: '${type(json_str)}'")?;
     }
     let parser = Parser(json_str);
@@ -23,7 +23,7 @@ fun from_str(json_str){
 # errors: []
 ##
 fun to_str(data){
-    if type(data) != "dict"{
+    if type(data) != "<type dict>"{
         return panic("WrongArgumentType", "expected dict, got: '${type(data)}'")?;
     }
 }
