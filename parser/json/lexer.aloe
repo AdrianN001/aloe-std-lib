@@ -81,7 +81,7 @@ struct Lexer{
             }elif this.str_is_letter(char){
                 this.parse_keyword()
             }else{
-                __err("invalid character: '${char}'");
+                error("InvalidCharacterInJSON", "invalid character: '${char}'");
             }
         }
 
@@ -149,7 +149,7 @@ struct Lexer{
         if keyword == "true" || keyword == "false" || keyword == "null"{
             Token(keyword, TokenType::KEYWORD)
         }else{
-            return __err("unknown keyword '${keyword}'");
+            return error("UnknownKeyword","unknown keyword '${keyword}'");
         }
     }
 

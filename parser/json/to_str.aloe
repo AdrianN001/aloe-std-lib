@@ -1,0 +1,70 @@
+
+fun to_json_str(value){
+    if type(value) == "<type array>"{
+        arr_to_json_str(value)
+    }elif type(value) == "<type str>"{
+        str_to_json_str(value)
+    }elif type(value) == "<type int>" || type(value) == "<type float>"{
+        number_to_json_str(value)
+    }elif type(value) == "<type null>"{
+        null_to_json_str(value)
+    }elif type(value) == "<type bool>"{
+        bool_to_json_str(value)
+    }elif type(value) == "<type dict>"{
+        dict_to_json_str(value)
+    }else{
+        error("TypeCannotBeConvertedToJSON","${type(value)} can not be converted to a json value")
+    }
+}
+
+fun str_to_json_str(value){
+    "\"${value}\""
+}
+
+fun number_to_json_str(value){
+    value.as_str
+}
+
+fun null_to_json_str(value){
+    "null"
+}
+
+fun bool_to_json_str(value){
+    if value{
+        "true"
+    }else{
+        "false"
+    }
+}
+
+fun arr_to_json_str(arr){
+    let mapped = [];
+
+    for value <- arr{
+        mapped.push(to_json_str(value)?)
+    } 
+
+    let joined = mapped.join(",");
+    
+    "[${joined}]"
+}
+
+fun dict_to_json_str(dict){
+
+    let body = [];
+
+    for key <- dict.keys{
+        if type(key) != "<type str>"{
+            return error("KeyIsNotString", "the key of the dictionary muss be a string");
+        }
+
+        let converted_key = str_to_json_str(key);
+        let converted_value = to_json_str(dict[key])?;
+
+        body.push("${converted_key}:${converted_value}");
+    }
+
+    let joined = body.join(",");
+
+    "{${joined}}"
+}

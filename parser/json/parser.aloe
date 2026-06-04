@@ -33,7 +33,7 @@ struct Parser{
                 let keyword_parsed = this.parse_keyword(token)?;
                 arr.push(keyword_parsed)
             }else{
-                return __err("unexpected token: ${token}");
+                return error("UnexpectedToken", "unexpected token: ${token}");
             }
 
             let second_token = this.lexer.next_token()?;
@@ -43,7 +43,7 @@ struct Parser{
             }
             
             if second_token.token_type != TokenType::COMMA{
-                return __err("unexpected token: ${second_token}, exepcted COMMA");
+                return error("UnexpectedToken", "unexpected token: ${second_token}, exepcted COMMA");
             }
         }
     }
@@ -77,14 +77,14 @@ struct Parser{
             }
 
             if key.token_type != TokenType::STRING{
-                return __err("key must a string, got: ${key.value}")
+                return error("UnexpectedToken", "key must a string, got: ${key.value}")
             }
 
             let key_value = this.parse_string(key);
 
             let colon = this.lexer.next_token()?;
             if colon.token_type != TokenType::COLON{
-                return __err("expected COLON, got: ${colon.value}");
+                return error("UnexpectedToken", "expected COLON, got: ${colon.value}");
             }
 
             let right_side = this.lexer.next_token()?;
@@ -105,7 +105,7 @@ struct Parser{
                 let keyword_parsed = this.parse_keyword(right_side)?;
                 dict.set(key_value, keyword_parsed)
             }else{
-                return __err("unexpected token: ${right_side}");
+                return error("UnexpectedToken", "unexpected token: ${right_side}");
             }
 
             let comma = this.lexer.next_token()?;
@@ -115,7 +115,7 @@ struct Parser{
             }elif comma.token_type == TokenType::RBRACE{
                 return dict;
             }else{
-                return __err("Expected COMMA or RBRACE, got: ${comma.value}")
+                return error("UnexpectedToken", "Expected COMMA or RBRACE, got: ${comma.value}")
             }
         }
 
@@ -136,7 +136,7 @@ struct Parser{
         }elif first_token.token_type == TokenType::NUMBER{
             this.parse_number(first_token)
         }else{
-            return __err("Illegal JSON");
+            return error("UnparsableJSON", "Illegal JSON");
         };
 
         result

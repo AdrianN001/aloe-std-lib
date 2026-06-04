@@ -1,10 +1,11 @@
 import {Parser} from "@std::parser/json/parser.aloe";
+import {to_json_str} from "@std::parser/json/to_str.aloe";
 
 ##
-# json::from_str(json_str: str) -> dict
+# json::from_str(json_str: str)? -> dict
 # parses a json string, and returns a dictionary
 # panics: [WrongArgumentCount, WrongArgumentType]
-# errors: []
+# errors: [InvalidCharacterInJSON, InvalidKeyword, UnexpectedToken, UnparsableJSON]
 ##
 fun from_str(json_str){
     if type(json_str) != "<type str>"{
@@ -17,13 +18,11 @@ fun from_str(json_str){
 
 
 ##
-# json::to_str(data: dict) -> str
-# parses a dictionary, and returns a json string
-# panics: [WrongArgumentCount, WrongArgumentType]
-# errors: []
+# json::to_str(data: dict|array|float|int|str|null|bool)? -> str
+# parses the data, and returns a json string
+# panics: [WrongArgumentCount]
+# errors: [KeyIsNotString, TypeCannotBeConvertedToJSON]
 ##
 fun to_str(data){
-    if type(data) != "<type dict>"{
-        return panic("WrongArgumentType", "expected dict, got: '${type(data)}'")?;
-    }
+    to_json_str(data)
 }
