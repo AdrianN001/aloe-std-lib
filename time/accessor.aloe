@@ -1,0 +1,11 @@
+
+
+##
+# time::now_as_millis() -> int
+# returns the milliseconds passed since Unix Epoch.
+# panics: []
+# errors: []
+##
+fun now_as_millis(){
+    __time()
+}
