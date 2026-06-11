@@ -6,4 +6,4 @@ import {
     temp_dir,
     platform,
     arch
-} from "std::os/accessor.aloe";
+} from "@std::os/accessor.aloe";
