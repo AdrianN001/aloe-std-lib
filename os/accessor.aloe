@@ -32,6 +32,16 @@ fun unset_env(key){
 }
 
 ##
+# os::current_dir()? -> Path
+# Returns the current working directory of the process if known.
+# panics: [WrongArgumentCount]
+# errors: [OS]
+##
+fun current_dir(){
+    __os_get_current_dir()
+}
+
+##
 # os::home_dir()? -> Path
 # Returns the path of the current user’s home directory if known.
 # panics: [WrongArgumentCount]
