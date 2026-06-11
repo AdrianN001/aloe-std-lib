@@ -38,7 +38,8 @@ fun unset_env(key){
 # errors: [OS]
 ##
 fun current_dir(){
-    __os_get_current_dir()
+    let native_path = __os_get_current_dir()?;
+    Path(native_path)
 }
 
 ##
