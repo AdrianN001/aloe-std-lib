@@ -2,6 +2,7 @@ import {
     get_env,
     set_env,
     unset_env,
+    current_dir
     home_dir,
     temp_dir,
     platform,
