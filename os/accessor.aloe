@@ -1,0 +1,74 @@
+import {Path} from "@std::path/struct.aloe";
+
+
+##
+# os::get_env(key: str)? -> str
+# Fetches the environment variable key from the current process.
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errros: [EnvironmentVariableNotFound]
+##
+fun get_env(key){
+    __os_getenv(key)
+}
+
+##
+# os::set_env(key: str, value: str) -> null
+# Sets the environment variable key to the value value for the currently running process.
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errors: []
+##
+fun set_env(key, value){
+    __os_setenv(key, value)
+}
+
+##
+# os::unset_env(key: str) -> null
+# Removes an environment variable from the environment of the currently running process.
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errors: []
+##
+fun unset_env(key){
+    __os_unsetenv(key)
+}
+
+##
+# os::home_dir()? -> Path
+# Returns the path of the current user’s home directory if known.
+# panics: [WrongArgumentCount]
+# errors: [OS]
+##
+fun home_dir(){
+    let native_path = __os_get_home_dir()?;
+    Path(native_path)
+}
+
+##
+# os::temp_dir() -> Path 
+# Returns the path of the current user’s temporary directory if known.
+# panics: [WrongArgumentCount]
+# errors: []
+##
+fun temp_dir(){
+    let native_path = __os_get_temp_dir();
+    Path(native_path)
+}
+
+##
+# os::platform() -> str
+# Returns the name of OS.
+# panics: [WrongArgumentCount]
+# errors: []
+##
+fun platform(){
+    __os_platform()
+}
+
+##
+# os::arch() -> str
+# Returns the architecture.
+# panics: [WrongArgumentCount]
+# errors: []
+##
+fun arch(){
+    __os_arch()
+}

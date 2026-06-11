@@ -1,0 +1,30 @@
+
+##
+# process::exit(exit_code: int)
+# exits the current process with "exit_code".
+# panics: [WrongArgumentCount, WrongArgumentType]
+# errors: []
+##
+fun exit(exit_code){
+    __exit(exit_code)
+}
+
+##
+# process::pid() -> int
+# returns the current process' process id.
+# panics: [WrongArgumentCount]
+# errors: []
+##
+fun pid(){
+    __pid()
+}
+
+##
+# process::args() -> [str]
+# returns the list of command list argument, provided to the program.
+# panics: [WrongArgumentCount]
+# errors: []
+##
+fun args(){
+    __args()
+}

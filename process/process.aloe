@@ -1,3 +1,14 @@
 import {
     command
 } from "@std::process/command.aloe";
+
+import {
+    exit,
+    pid,
+    args   
+} from "@std::process/accessor.aloe";
+
+import {
+    sleep,
+    sleep_async
+} from "@std::process/sleep.aloe";

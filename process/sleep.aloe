@@ -1,0 +1,10 @@
+
+
+fun sleep(millis){
+    __sleep(millis) 
+}
+
+
+fun sleep_async(millis){
+    __sleep2(millis)
+}

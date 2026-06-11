@@ -81,7 +81,7 @@ struct Command{
     }
 
     ##
-    # Command.output() -> [int, buffer, buffer]
+    # Command.output()? -> [int, buffer, buffer]
     # Executes the command as a child process, waiting for it to finish and collects its input as [status, stdout, stderr];
     # panics: [WrongArgumentType, WrongArgumentCount]
     # errors: [Command]
